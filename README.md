@@ -17,9 +17,9 @@ If you are developing a production application, we recommend updating the config
 
 ```js
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
 
@@ -34,46 +34,109 @@ export default defineConfig([
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
       // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
+      reactX.configs["recommended-typescript"],
       // Enable lint rules for React DOM
       reactDom.configs.recommended,
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
+]);
 ```
 
 ## Run this project
 
 ```sh
 npm run dev
+```
+
+## Deploy on GitHub Pages
+
+### gh-pages
+
+> [!warn]  
+> This doesn't work because of my local nexus repository
+
+Run on local environment
+
+```bash
+npm install --save-dev gh-pages
+```
+
+In file `package.json` scripts add:
+
+```json
+{
+  "scripts": {
+    // ...previous config
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  // ... configuration continues
+}
+```
+
+On file vite.config.js add:
+```js
+// ...previous config
+export default defineConfig({
+  base: "/net-flex-jm/",
+  // ...configuration continues
+});
+```
+
+Then run
+```bash
+npm run deploy
+```
+
+On GitHub go to:  
+Settings > Pages > Build and deployment > Branch > gh-pages
+
+### GitHub Actions
+
+#### Add configuration
+
+```sh
+.guthub/
+└── workflows/
+    └── deploy.yml
+```
+
+#### Enable GitHub Pages in repository  
+Settings > Pages > Build and deployment > Source > `GitHub Actions`
+
+#### Push
+```bash
+git add .
+git commit -m "build: GitHub Actions added to project"
+git push origin main
 ```
