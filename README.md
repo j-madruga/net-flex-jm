@@ -109,6 +109,12 @@ npm install tailwindcss @tailwindcss/vite
 npm i react-use
 ```
 
+### Node dependencies
+
+```bash
+npm i --save-dev @types/node
+```
+
 ## Deploy on GitHub Pages
 
 ### gh-pages
