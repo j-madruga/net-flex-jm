@@ -72,10 +72,41 @@ export default defineConfig([
 ]);
 ```
 
-## Run this project
+## React App Build Lifecycle
 
+Run locally
 ```sh
 npm run dev
+```
+
+Run Linter
+```bash
+npm run lint
+```
+
+Build app
+```bash
+npm run build
+```
+Production Preview
+```bash
+npm run preview
+```
+
+## Add dependencies
+
+### Tailwind
+
+[Installation docs]("https://tailwindcss.com/docs/installation/framework-guides")
+
+```sh
+npm install tailwindcss @tailwindcss/vite
+```
+
+### React debounce hook
+
+```sh
+npm i react-use
 ```
 
 ## Deploy on GitHub Pages
